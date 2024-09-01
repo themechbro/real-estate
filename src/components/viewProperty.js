@@ -1,23 +1,29 @@
 import React from "react";
-import { Typography, Button, IconButton } from "@mui/material";
-import { Input, Textarea, Grid, Box, Link } from "@mui/joy";
+import { Typography, IconButton } from "@mui/material";
+import { Input, Textarea, Grid, Box, Button } from "@mui/joy";
 import BedIcon from "@mui/icons-material/Bed";
 import BathtubIcon from "@mui/icons-material/Bathtub";
 import SquareFootIcon from "@mui/icons-material/SquareFoot";
 import { useSelector } from "react-redux";
 import { Container } from "@mui/system";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import { useDispatch } from "react-redux";
+import { addtoCart } from "../Redux/Actions/actions";
+import { useNavigate } from "react-router-dom";
 
 export default function ViewProperty() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const property = useSelector((state) => state.view.viewProperty);
+
   return (
     <Container maxWidth="lg" sx={{ paddingTop: 10 }}>
       <IconButton
         edge="start"
         color="inherit"
         aria-label="back"
-        component={Link}
-        href="/"
+        onClick={() => navigate("/")}
       >
         <ArrowBackIcon />
       </IconButton>
@@ -114,18 +120,19 @@ export default function ViewProperty() {
               />
 
               <Button
-                variant="contained"
-                color="error"
+                variant="outlined"
                 sx={{ mt: 2, borderRadius: "8px" }}
+                color="danger"
               >
                 Send Message
               </Button>
               <Button
+                startDecorator={<ShoppingCartIcon />}
                 variant="outlined"
-                color="error"
                 sx={{ mt: 2, borderRadius: "8px" }}
+                onClick={() => dispatch(addtoCart(property))}
               >
-                Phonecall
+                Add to Cart
               </Button>
             </Box>
           </Grid>

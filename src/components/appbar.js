@@ -1,9 +1,13 @@
 import * as React from "react";
 import { AppBar, Toolbar } from "@mui/material";
 import useScrollTrigger from "@mui/material/useScrollTrigger";
-import { Search } from "@mui/icons-material";
 import { Typography, Button, Box } from "@mui/joy";
-import PropTypes from "prop-types";
+import Badge from "@mui/joy/Badge";
+import { useSelector } from "react-redux";
+import DrawerBasic from "./drawer";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function ElevationScroll(props) {
   const { children, window } = props;
@@ -21,6 +25,12 @@ function ElevationScroll(props) {
 }
 
 export default function Appbar(props) {
+  const navigate = useNavigate();
+  const cart = useSelector((state) => state.view.cart.length);
+  console.log(cart);
+
+  const [open1, setOpen1] = React.useState(false);
+
   return (
     <ElevationScroll {...props}>
       <AppBar
@@ -35,9 +45,14 @@ export default function Appbar(props) {
             justifyContent: "space-between",
           }}
         >
-          <Typography level="h6" sx={{ color: "black" }}>
-            Find Home
-          </Typography>
+          <Link to="/" style={{ textDecoration: "none" }}>
+            <Typography
+              level="h6"
+              sx={{ color: "black", fontSize: "2rem", textDecoration: "none" }}
+            >
+              Find Home
+            </Typography>
+          </Link>
           <Box
             sx={{
               width: "500px",
@@ -46,6 +61,16 @@ export default function Appbar(props) {
               justifyContent: "space-evenly",
             }}
           >
+            {cart ? (
+              <Badge badgeContent={cart}>
+                <DrawerBasic />
+              </Badge>
+            ) : (
+              <Button variant="plain" startDecorator={<ShoppingCartIcon />}>
+                Cart
+              </Button>
+            )}
+
             <Button>Login</Button>
             <Button>Sign Up</Button>
           </Box>
