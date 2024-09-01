@@ -32,15 +32,23 @@ export default function Appbar(props) {
           sx={{
             display: "flex",
             flexDirection: "row",
-            justifyContent: "space-evenly",
+            justifyContent: "space-between",
           }}
         >
           <Typography level="h6" sx={{ color: "black" }}>
-            <Search />
-            Home
+            Find Home
           </Typography>
-          <Button>Login</Button>
-          <Button>Sign Up</Button>
+          <Box
+            sx={{
+              width: "500px",
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-evenly",
+            }}
+          >
+            <Button>Login</Button>
+            <Button>Sign Up</Button>
+          </Box>
         </Toolbar>
       </AppBar>
     </ElevationScroll>
