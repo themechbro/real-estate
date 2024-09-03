@@ -57,7 +57,7 @@ export default function DrawerBasic() {
         open={open}
         onClose={toggleDrawer(false)}
         anchor="right"
-        size="md"
+        size="lg"
         sx={{
           "& .MuiDrawer-paper": {
             background: "#f9f9f9",
